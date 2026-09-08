@@ -34,6 +34,7 @@ export interface OrderItem {
   productId: number;
   productName: string;
   pictureUrl: string;
+  size?: string;
   price: number;
   quantity: number;
 }

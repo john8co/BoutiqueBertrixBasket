@@ -6,6 +6,7 @@
     "PictureUrl": "/images/products/polo-blanc1.png",
     "Type": "Polo",
     "Color": "Blanc",
+    "Sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL"],
     "QuantityInStock": 27
   },
   {
@@ -15,6 +16,7 @@
     "PictureUrl": "/images/products/polo-bleu1.png",
     "Type": "Polo",
     "Color": "Bleu",
+    "Sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL"],
     "QuantityInStock": 27
   },
   {
@@ -24,6 +26,7 @@
     "PictureUrl": "/images/products/polo-blanc1.png",
     "Type": "Polo",
     "Color": "Blanc",
+    "Sizes": ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
     "QuantityInStock": 27
   },
   {
@@ -33,6 +36,7 @@
     "PictureUrl": "/images/products/polo-bleu1.png",
     "Type": "Polo",
     "Color": "Bleu",
+    "Sizes": ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
     "QuantityInStock": 27
   },
   {
@@ -42,6 +46,7 @@
     "PictureUrl": "/images/products/sweat-capuche-blanc1.png",
     "Type": "Sweat",
     "Color": "Blanc",
+    "Sizes": ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
     "QuantityInStock": 27
   },
   {
@@ -51,6 +56,7 @@
     "PictureUrl": "/images/products/sweat-capuche-bleu1.png",
     "Type": "Sweat",
     "Color": "Bleu",
+    "Sizes": ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
     "QuantityInStock": 27
   },
   {
@@ -60,6 +66,7 @@
     "PictureUrl": "/images/products/gilet-capuche-blanc1.png",
     "Type": "Gilet",
     "Color": "Blanc",
+    "Sizes": ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"],
     "QuantityInStock": 27
   },
   {
@@ -69,6 +76,7 @@
     "PictureUrl": "/images/products/gilet-capuche-bleu1.png",
     "Type": "Gilet",
     "Color": "Bleu",
+    "Sizes": ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"],
     "QuantityInStock": 27
   },
   {
@@ -78,6 +86,7 @@
     "PictureUrl": "/images/products/tshirt-blanc1.png",
     "Type": "T-shirt",
     "Color": "Blanc",
+    "Sizes": ["S", "M", "L", "XL", "2XL"],
     "QuantityInStock": 27
   },
   {
@@ -87,6 +96,7 @@
     "PictureUrl": "/images/products/tshirt-bleu1.png",
     "Type": "T-shirt",
     "Color": "Bleu",
+    "Sizes": ["S", "M", "L", "XL", "2XL"],
     "QuantityInStock": 27
   },
   {
@@ -96,6 +106,7 @@
     "PictureUrl": "/images/products/tshirt-blanc2.png",
     "Type": "T-shirt",
     "Color": "Blanc",
+    "Sizes": ["S", "M", "L", "XL", "2XL"],
     "QuantityInStock": 27
   },
   {
@@ -105,6 +116,7 @@
     "PictureUrl": "/images/products/tshirt-bleu2.png",
     "Type": "T-shirt",
     "Color": "Bleu",
+    "Sizes": ["S", "M", "L", "XL", "2XL"],
     "QuantityInStock": 27
   }
   ,
@@ -115,6 +127,7 @@
     "PictureUrl": "/images/products/tshirt-blanc3.png",
     "Type": "T-shirt",
     "Color": "Blanc",
+    "Sizes": ["S", "M", "L", "XL", "2XL"],
     "QuantityInStock": 27
   },
   {
@@ -124,6 +137,7 @@
     "PictureUrl": "/images/products/tshirt-bleu3.png",
     "Type": "T-shirt",
     "Color": "Bleu",
+    "Sizes": ["S", "M", "L", "XL", "2XL"],
     "QuantityInStock": 27
   },
   {
@@ -151,6 +165,7 @@
     "PictureUrl": "/images/products/claquette-blanc1.png",
     "Type": "Claquettes",
     "Color": "Blanc",
+    "Sizes": ["36", "37", "38", "39", "40", "41", "42", "43", "44"],
     "QuantityInStock": 27
   },
   {
@@ -160,6 +175,7 @@
     "PictureUrl": "/images/products/claquette-bleu1.png",
     "Type": "Claquettes",
     "Color": "Bleu",
+    "Sizes": ["36", "37", "38", "39", "40", "41", "42", "43", "44"],
     "QuantityInStock": 27
   }
-] 
+]

@@ -47,19 +47,19 @@ export class CartService {
     })
   }
 
-  addItemToCart(item: CartItem | Product, quantity = 1) {
+  addItemToCart(item: CartItem | Product, quantity = 1, size?: string) {
     const cart = this.cart() ?? this.createCart();
     if (this.isProduct(item)) {
-      item = this.mapProductToCartItem(item);
+      item = this.mapProductToCartItem(item, size);
     }
     cart.items = this.addOrUpdateItem(cart.items, item, quantity);
     this.setCart(cart);
   }
 
-  removeItemFromCart(productId: number, quantity = 1) {
+  removeItemFromCart(productId: number, quantity = 1, size?: string) {
     const cart = this.cart();
     if (!cart) return;
-    const index = cart.items.findIndex(x => x.productId === productId);
+    const index = cart.items.findIndex(x => x.productId === productId && x.size === size);
     if (index !== -1) {
       if (cart.items[index].quantity > quantity) {
         cart.items[index].quantity -= quantity;
@@ -84,7 +84,7 @@ export class CartService {
   }
 
   private addOrUpdateItem(items: CartItem[], item: CartItem, quantity: number): CartItem[] {
-    const index = items.findIndex(x => x.productId === item.productId);
+    const index = items.findIndex(x => x.productId === item.productId && x.size === item.size);
     if (index === -1) {
       item.quantity = quantity;
       items.push(item);
@@ -94,7 +94,7 @@ export class CartService {
     return items;
   }
 
-  private mapProductToCartItem(item: Product): CartItem {
+  private mapProductToCartItem(item: Product, size?: string): CartItem {
     return {
       productId: item.id,
       productName: item.name,
@@ -102,7 +102,8 @@ export class CartService {
       quantity: 0,
       pictureUrl: item.pictureUrl,
       color: item.color,
-      type: item.type
+      type: item.type,
+      size
     }
   }
 

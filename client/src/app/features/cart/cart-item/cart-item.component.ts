@@ -27,10 +27,10 @@ export class CartItemComponent {
   }
 
   decrementQuantity() {
-    this.cartService.removeItemFromCart(this.item().productId, 1);
+    this.cartService.removeItemFromCart(this.item().productId, 1, this.item().size);
   }
 
   removeItemFromCart() {
-    this.cartService.removeItemFromCart(this.item().productId, this.item().quantity);
+    this.cartService.removeItemFromCart(this.item().productId, this.item().quantity, this.item().size);
   }
 }

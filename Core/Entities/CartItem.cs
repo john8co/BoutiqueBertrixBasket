@@ -9,4 +9,5 @@ public class CartItem
     public required string PictureUrl { get; set; }
     public required string Color { get; set; }
     public required string Type { get; set; }
+    public string? Size { get; set; }
 }

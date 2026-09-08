@@ -35,7 +35,8 @@ public class OrdersController(ICartService cartService, IUnitOfWork unit) : Base
             {
                 ProductId = item.ProductId,
                 ProductName = item.ProductName,
-                PictureUrl = item.PictureUrl
+                PictureUrl = item.PictureUrl,
+                Size = item.Size
             };
 
             var orderItem = new OrderItem                

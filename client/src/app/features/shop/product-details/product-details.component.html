@@ -11,8 +11,18 @@
                     <div class="mt-4 items-center gap-4 flex">
                         <p class="text-3xl font-extrabold text-gray-900">{{product()!.price | currency: 'EUR'}}</p>
                     </div>
+                    @if (hasSizes()) {
+                        <mat-form-field appearance="outline" class="flex mt-4">
+                            <mat-label>Taille</mat-label>
+                            <mat-select [ngModel]="selectedSize()" (ngModelChange)="onSizeChange($event)">
+                                @for (size of product()!.sizes; track size) {
+                                    <mat-option [value]="size">{{size}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    }
                     <div class="flex gap-4 mt-6">
-                        <button [disabled]="quantity() == quantityInCart()" (click)="updateCart()" mat-flat-button class="min-h-14">
+                        <button [disabled]="!canUpdateCart()" (click)="updateCart()" mat-flat-button class="min-h-14">
                             <mat-icon>shopping_cart</mat-icon>
                             {{getButtonText()}}
                         </button>

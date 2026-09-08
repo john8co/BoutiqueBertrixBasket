@@ -8,5 +8,6 @@ public class Product : BaseEntity
     public required string PictureUrl { get; set; }
     public required string Type { get; set; }
     public required string Color { get; set; }
+    public List<string>? Sizes { get; set; }
     public int QuantityInStock { get; set; }
 }

@@ -37,12 +37,17 @@
                 <div class="border-y border-gray-200">
                     <table class="w-full text-center">
                         <tbody class="divide-y divide-gray-200">
-                            @for (item of order.orderItems; track item.productId) {
+                            @for (item of order.orderItems; track item.productId + (item.size ?? '')) {
                                 <tr>
                                     <td class="py-4">
                                         <div class="flex items-center gap-4">
                                             <img src="{{item.pictureUrl}}" (error)="$event.target.src='/images/placeholder.png'" alt="Image du produit" class="w-10 h-10">
-                                            <span>{{item.productName}}</span>
+                                            <div class="text-left">
+                                                <div>{{item.productName}}</div>
+                                                @if (item.size) {
+                                                    <div class="text-sm text-gray-500">Taille : {{item.size}}</div>
+                                                }
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="p-4">x{{item.quantity}}</td>

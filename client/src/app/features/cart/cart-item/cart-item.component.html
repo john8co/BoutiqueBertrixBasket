@@ -21,6 +21,9 @@
             <a routerLink="/shop/{{item().productId}}" class="font-medium">
                 {{item().productName}}
             </a>
+            @if (item().size) {
+                <p class="text-sm text-gray-500">Taille : {{item().size}}</p>
+            }
             <div class="flex items-center gap-4">
                 <button mat-button class="text-red-700!" (click)="removeItemFromCart()" >
                     <mat-icon>delete</mat-icon>

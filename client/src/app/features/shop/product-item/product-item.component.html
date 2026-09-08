@@ -8,10 +8,17 @@
             <p class="font-light">{{product.price | currency: 'EUR'}}</p>
         </mat-card-content>
         <mat-card-actions class="mt-auto" (click)="$event.stopPropagation()">
-            <button mat-stroked-button class="w-full flex items-center justify-center gap-2 whitespace-nowrap" (click)="cartService.addItemToCart(product)">
-                <mat-icon>add_shopping_cart</mat-icon>
-                Ajouter
-            </button>
+            @if (product.sizes?.length) {
+                <button mat-stroked-button class="w-full flex items-center justify-center gap-2 whitespace-nowrap" routerLink="/shop/{{product.id}}">
+                    <mat-icon>straighten</mat-icon>
+                    Choisir une taille
+                </button>
+            } @else {
+                <button mat-stroked-button class="w-full flex items-center justify-center gap-2 whitespace-nowrap" (click)="cartService.addItemToCart(product)">
+                    <mat-icon>add_shopping_cart</mat-icon>
+                    Ajouter
+                </button>
+            }
         </mat-card-actions>
     </mat-card>
 }
