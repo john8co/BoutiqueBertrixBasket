@@ -1,0 +1,81 @@
+@if (order(); as order) {
+    <mat-card class="bg-white py-8 shadow-md max-w-5xl mx-auto">
+        <div class="px-4 w-full">
+            <div class="flex justify-evenly items-center align-middle">                
+                <h2 class="text-2xl text-center font-semibold">Résumé de la commande #{{order.id}}</h2>
+                <button mat-stroked-button routerLink="/orders">Retour aux commandes</button>
+            </div>
+            <div class="mt-8 py-3 border-t border-gray-100 flex justify-evenly">
+                <div class="space-y-2">
+                    <h4 class="text-lg font-semibold">Informations de facturation et de livraison</h4>
+                    <dl>
+                        <dt class="font-medium">Adresse de livraison</dt>
+                        <dd class="mt-1 font-light">{{order.shippingAddress | address}}</dd>                        
+                    </dl>
+                    <dl>
+                        <dt class="font-medium">Informations de paiement</dt>
+                        <dd class="mt-1 font-light">{{order.paymentSummary | paymentCard}}</dd>                        
+                    </dl>
+                </div>
+                <div class="space-y-2">
+                    <h4 class="text-lg font-semibold">Détails de la commande</h4>
+                    <dl>
+                        <dt class="font-medium">Adresse e-mail</dt>
+                        <dd class="mt-1 font-light">{{order.buyerEmail}}</dd>                        
+                    </dl>
+                    <dl>
+                        <dt class="font-medium">Status de la commande</dt>
+                        <dd class="mt-1 font-light">{{order.status}}</dd>                        
+                    </dl>
+                    <dl>
+                        <dt class="font-medium">Date de la commande</dt>
+                        <dd class="mt-1 font-light">{{order.orderDate | date:'medium'}}</dd>                        
+                    </dl>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="border-y border-gray-200">
+                    <table class="w-full text-center">
+                        <tbody class="divide-y divide-gray-200">
+                            @for (item of order.orderItems; track item.productId) {
+                                <tr>
+                                    <td class="py-4">
+                                        <div class="flex items-center gap-4">
+                                            <img src="{{item.pictureUrl}}" (error)="$event.target.src='/images/placeholder.png'" alt="Image du produit" class="w-10 h-10">
+                                            <span>{{item.productName}}</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">x{{item.quantity}}</td>
+                                    <td class="p-4 text-right">{{item.price | currency: 'EUR'}}</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="space-y-4 rounded-lg  border-y border-gray-200 p-4">
+                <p class="text-xl font-semibold">Résumé de la commande</p>
+                <div class="space-y-4">
+                    <div class="space-y-2">
+                        <dl class="flex items-center justify-between gap-4">
+                            <dt class="font-medium text-gray-500">Sous-Total</dt>
+                            <dd class="font-medium text-gray-900">{{order.subtotal | currency: 'EUR'}}</dd>
+                        </dl>
+                        <dl class="flex items-center justify-between gap-4">
+                            <dt class="font-medium text-gray-500">Réduction</dt>
+                            <dd class="font-medium text-green-500">-0.00€</dd>
+                        </dl>
+                        <dl class="flex items-center justify-between gap-4">
+                            <dt class="font-medium text-gray-500">Frais de livraison</dt>
+                            <dd class="font-medium text-gray-900">{{order.shippingPrice| currency: 'EUR'}}</dd>
+                        </dl>
+                    </div>
+                    <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
+                        <dt class="font-medium text-gray-500">Total</dt>
+                        <dd class="font-medium text-gray-900">{{order.total | currency: 'EUR'}}</dd>
+                    </dl>
+                </div> 
+            </div>
+        </div>
+    </mat-card>
+}

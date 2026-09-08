@@ -1,30 +1,48 @@
-<section class="bg-white py-16">
-    <div class="mx-auto max-w-2xl px-4">
-        <h2 class="font-semibold text-2xl mb-2">Merci pour votre commande!</h2>
-        <p class="text-gray-500 mb-8">
-            Votre commande <span class="font-medium">#42</span>
-        </p>
-        <div class="space-y-2 rounded-lg border border-gray-100 bg-gray-50 p-6 mb-8">
-            <dl class="flex items-center justify-between gap-4">
-                <dt class="font-normal text-gray-500">Date</dt>
-                <dd class="font-medium text-gray-900 text-end">20 Sep 2026</dd>
-            </dl>
-            <dl class="flex items-center justify-between gap-4">
-                <dt class="font-normal text-gray-500">Méthode de paiement</dt>
-                <dd class="font-medium text-gray-900 text-end">Visa</dd>
-            </dl>
-            <dl class="flex items-center justify-between gap-4">
-                <dt class="font-normal text-gray-500">Adresse</dt>
-                <dd class="font-medium text-gray-900 text-end">Ici</dd>
-            </dl>
-            <dl class="flex items-center justify-between gap-4">
-                <dt class="font-normal text-gray-500">Montant</dt>
-                <dd class="font-medium text-gray-900 text-end">100 €</dd>
-            </dl>
+@if (signalrService.orderSignal(); as order) {
+    <section class="bg-white py-16">
+        <div class="mx-auto max-w-2xl px-4">
+            <h2 class="font-semibold text-2xl mb-2">Merci pour votre commande!</h2>
+            <p class="text-gray-500 mb-8">
+                Votre commande <span class="font-medium">#{{order.id}}</span>
+            </p>
+            <div class="space-y-2 rounded-lg border border-gray-100 bg-gray-50 p-6 mb-8">
+                <dl class="flex items-center justify-between gap-4">
+                    <dt class="font-normal text-gray-500">Date</dt>
+                    <dd class="font-medium text-gray-900 text-end">{{order.orderDate | date: 'medium'}}</dd>
+                </dl>
+                <dl class="flex items-center justify-between gap-4">
+                    <dt class="font-normal text-gray-500">Méthode de paiement</dt>
+                    <dd class="font-medium text-gray-900 text-end">{{order.paymentSummary | paymentCard}}</dd>
+                </dl>
+                <dl class="flex items-center justify-between gap-4">
+                    <dt class="font-normal text-gray-500">Adresse</dt>
+                    <dd class="font-medium text-gray-900 text-end">{{order.shippingAddress | address}}</dd>
+                </dl>
+                <dl class="flex items-center justify-between gap-4">
+                    <dt class="font-normal text-gray-500">Montant</dt>
+                    <dd class="font-medium text-gray-900 text-end">{{order.total | currency: 'EUR'}}</dd>
+                </dl>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button routerLink="/orders/{{order.id}}" mat-flat-button>Voir votre commande</button>
+                <button routerLink="/shop" mat-stroked-button>Continuer le shopping</button>
+            </div>
         </div>
-        <div class="flex items-center space-x-4">
-            <button routerLink="/orders/42" mat-flat-button>Voir votre commande</button>
-            <button routerLink="/shop" mat-stroked-button>Continuer le shopping</button>
+    </section>
+} @else {
+    <section class="bg-white py-16">
+        <div class="mx-auto max-w-2xl px-4">
+            <h2 class="font-semibold text-2xl mb-2">Commande en cours de traitement, veuillez patienter</h2>
+            <div class="space-y-2 rounded-lg border border-gray-100 bg-gray-50 p-6 mb-8">
+                <div class="flex flex-col justify-center items-center">
+                    <mat-spinner diameter="30"></mat-spinner>
+                    <p class="text-xl">Chargement de la commande…</p>
+                    <span>Votre paiement a bien été reçu, nous créons votre commande</span>
+                </div>
+            </div>      
+            <div class="flex items-center space-x-4">
+                <button routerLink="/shop" mat-stroked-button>Continuer le shopping</button>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+}

@@ -1,1 +1,15 @@
-<p>home works!</p>
+<div class="max-w-screen-2xl mx-auto px-4 mt-32">
+    <div class="flex flex-col items-center py-32 justify-center mt-20 rounded-2xl shadow-xl relative">
+        <img class="absolute inset-0 w-full h-full object-cover rounded-2xl" src="../images/club.png" (error)="$event.target.src='/images/placeholder.png'" alt="image club">
+        <div class="flex flex-col p-8 rounded-2xl items-center relative">
+            <h1 class="my-6 font-extrabold text-white text-6xl">
+                Bienvenue à la boutique du club de basket de Bertrix
+            </h1>
+            <button 
+                class="bg-linear-to-r  from-blue-900 to-blue-500 font-semibold text-2xl text-white rounded-2xl px-8 py-4 border-2 border-transparent mt-8"
+                routerLink="/shop">
+                Aller à la boutique
+            </button>
+        </div>
+    </div>
+</div>

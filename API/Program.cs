@@ -1,4 +1,5 @@
 using API.Middleware;
+using API.SignalR;
 using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Data;
@@ -32,6 +33,7 @@ builder.Services.AddIdentityApiEndpoints<AppUser>()
     .AddErrorDescriber<FrenchIdentityErrorDescriber>()
     .AddEntityFrameworkStores<StoreContext>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -47,6 +49,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapGroup("api").MapIdentityApi<AppUser>(); //api/login
+app.MapHub<NotificationHub>("/hub/notifications");
 
 try
 {

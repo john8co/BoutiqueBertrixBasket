@@ -40,13 +40,17 @@ Three projects with a strict dependency direction: `API` → `Infrastructure` �
 
 **Cart**: not persisted in SQL — stored as JSON in Redis, keyed by cart id, with a 30-day TTL (`Infrastructure/Services/CartServices.cs`).
 
+**Orders/payments**: `PaymentsController` creates/updates the Stripe PaymentIntent for a cart, and its `webhook` endpoint (Stripe → server) verifies the event, loads the matching `Order` via `OrderSpecification(paymentIntentId, bool)`, and flips `Order.Status` (`Core/Entities/OrderAggregate/OrderStatus.cs`) to `PaymentReceived`/`PaymentMismatch` based on whether the charged amount matches the order total. `OrderMappingExtensions.ToDto()` translates `OrderStatus` to French display strings for the API response.
+
 **Config/secrets**: Stripe keys and the DB/Redis connection strings sit in `appsettings*.json` (this is a learning/reference project — treat these as already-public test/dev credentials, not real secrets, but still don't add real production secrets to these files).
+
+**Real-time order notifications**: `API/SignalR/NotificationHub.cs` (mapped at `/hub/notifications` in `Program.cs`, `[Authorize]`-protected) tracks a static `ConcurrentDictionary<email, connectionId>` of connected users. When the Stripe webhook in `PaymentsController` marks an order `PaymentReceived`/`PaymentMismatch`, it looks up the buyer's connection via `NotificationHub.GetConnectionIdByEmail` and pushes an `OrderCompleteNotification` event with the order DTO over `IHubContext<NotificationHub>`.
 
 ### Frontend structure (`client/src/app`)
 Standalone Angular components (no `NgModule`s), Angular Material for UI, Tailwind for utility styling.
-- `core/` — singleton concerns: HTTP interceptors (`auth`, `error`, `loading`), route guards, and services (`shop.service`, `cart.service`, `account.service`, `checkout.service`, `stripe.service`, `busy.service`, `init.service`). `InitService.init()` runs via `provideAppInitializer` in `app.config.ts` before the app renders (removes the `#initial-splash` element from `index.html`).
-- `features/` — routed, page-level components grouped by domain: `shop`, `cart`, `checkout` (delivery → review → success sub-steps), `account` (login/register), `home`.
+- `core/` — singleton concerns: HTTP interceptors (`auth`, `error`, `loading`), route guards, and services (`shop.service`, `cart.service`, `account.service`, `checkout.service`, `stripe.service`, `busy.service`, `init.service`, `order.service`, `signalr.service`). `InitService.init()` runs via `provideAppInitializer` in `app.config.ts` before the app renders: it restores the cart, fetches the current user, and — if logged in — opens the SignalR hub connection (`SignalrService.createHubConnection()`), then removes the `#initial-splash` element from `index.html`. `SignalrService.orderSignal` is set from the `OrderCompleteNotification` event and read by the checkout-success screen to show the finalized order once payment confirmation arrives asynchronously.
+- `features/` — routed, page-level components grouped by domain: `shop`, `cart`, `checkout` (delivery → review → success sub-steps, `checkout-success` gated by `orderCompleteGuard` which checks `OrderService.orderComplete`), `orders` (order history + `order-detailed`, both `authGuard`-protected), `account` (login/register), `home`.
 - `layout/` — app chrome (`header`).
 - `shared/` — reusable presentational components, TypeScript `models/` mirroring the backend DTOs/entities, and `pipes/`.
 
-HTTP calls go through `provideHttpClient` with `errorInterceptor` → `loadingInterceptor` → `authInterceptor` (order matters: `Program.cs` order in `app.config.ts`). Routing is guarded by `auth-guard` and `empty-cart-guard` for checkout flows.
+HTTP calls go through `provideHttpClient` with `errorInterceptor` → `loadingInterceptor` → `authInterceptor` (order matters: `Program.cs` order in `app.config.ts`). Routing is guarded by `auth-guard`, `empty-cart-guard` for checkout flows, and `order-complete-guard` for the post-payment success page.

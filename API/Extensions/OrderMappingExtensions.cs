@@ -19,8 +19,20 @@ public static class OrderMappingExtensions
             OrderItems = order.OrderItems.Select(x => x.ToDto()).ToList(),
             Subtotal = order.Subtotal,
             Total = order.GetTotal(),
-            Status = order.Status.ToString(),
+            Status = order.Status.ToFrenchString(),
             PaymentIntentId = order.PaymentIntentId
+        };
+    }
+
+    private static string ToFrenchString(this OrderStatus status)
+    {
+        return status switch
+        {
+            OrderStatus.Pending => "En attente",
+            OrderStatus.PaymentReceived => "Paiement reçu",
+            OrderStatus.PaymentFailed => "Paiement échoué",
+            OrderStatus.PaymentMismatch => "Incohérence de paiement",
+            _ => status.ToString()
         };
     }
 
